@@ -1,0 +1,32 @@
+apiVersion: datagovsecops.org/v0alpha1
+kind: DataProductSecurityProfile
+metadata:
+  name: fictional-public-statistics-security
+  version: 0.1.0
+  status: proposed
+spec:
+  classification:
+    confidentiality: public
+    integrity: elevated
+    availability: standard
+  access:
+    owner: Fictional security owner
+    leastPrivilegeReviewed: false
+    reviewInterval: P180D
+  integrity:
+    lineageProtected: true
+    changeHistoryProtected: true
+    verificationMechanisms:
+      - protected-pull-request-review
+  controls:
+    - id: DGSO-INT-001
+      objective: Changes affecting data integrity are attributable and reviewable.
+      owner: Fictional control owner
+      implementationStatus: planned
+      verification: automated
+      evidence:
+        - fictional-build-provenance
+  supplyChain:
+    dependenciesRecorded: true
+    buildProvenanceAvailable: false
+    artifactIntegrityVerified: false
