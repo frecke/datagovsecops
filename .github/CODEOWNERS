@@ -1,0 +1,7 @@
+# Repository-wide ownership
+* @frecke
+
+# Governance and automation
+/.github/ @frecke
+/docs/adr/ @frecke
+/schemas/ @frecke
