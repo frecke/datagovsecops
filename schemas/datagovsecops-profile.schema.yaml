@@ -1,0 +1,149 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://github.com/frecke/datagovsecops/schemas/datagovsecops-profile.schema.yaml
+title: DataGovSecOps data product security profile
+description: Experimental representation of security intent, ownership and evidence.
+type: object
+additionalProperties: false
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+properties:
+  apiVersion:
+    const: datagovsecops.org/v0alpha1
+  kind:
+    const: DataProductSecurityProfile
+  metadata:
+    type: object
+    additionalProperties: false
+    required:
+      - name
+      - version
+      - status
+    properties:
+      name:
+        type: string
+        pattern: "^[a-z][a-z0-9-]{2,62}$"
+      version:
+        type: string
+        pattern: "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+      status:
+        enum:
+          - proposed
+          - active
+          - deprecated
+          - retired
+  spec:
+    type: object
+    additionalProperties: false
+    required:
+      - classification
+      - access
+      - integrity
+      - controls
+    properties:
+      classification:
+        type: object
+        additionalProperties: false
+        required:
+          - confidentiality
+          - integrity
+          - availability
+        properties:
+          confidentiality:
+            enum:
+              - public
+              - internal
+              - restricted
+              - highly-restricted
+          integrity:
+            enum:
+              - standard
+              - elevated
+              - critical
+          availability:
+            enum:
+              - standard
+              - elevated
+              - critical
+      access:
+        type: object
+        additionalProperties: false
+        required:
+          - owner
+          - leastPrivilegeReviewed
+        properties:
+          owner:
+            type: string
+            minLength: 1
+          leastPrivilegeReviewed:
+            type: boolean
+          reviewInterval:
+            type: string
+            description: ISO 8601 duration.
+      integrity:
+        type: object
+        additionalProperties: false
+        required:
+          - lineageProtected
+          - changeHistoryProtected
+        properties:
+          lineageProtected:
+            type: boolean
+          changeHistoryProtected:
+            type: boolean
+          verificationMechanisms:
+            type: array
+            items:
+              type: string
+      controls:
+        type: array
+        minItems: 1
+        items:
+          type: object
+          additionalProperties: false
+          required:
+            - id
+            - objective
+            - owner
+            - verification
+          properties:
+            id:
+              type: string
+            objective:
+              type: string
+              minLength: 1
+            owner:
+              type: string
+              minLength: 1
+            implementationStatus:
+              enum:
+                - not-assessed
+                - planned
+                - implemented
+                - verified
+            verification:
+              enum:
+                - manual
+                - automated
+                - hybrid
+            evidence:
+              type: array
+              items:
+                type: string
+            exceptionReference:
+              type: string
+            exceptionExpires:
+              type: string
+              format: date
+      supplyChain:
+        type: object
+        additionalProperties: false
+        properties:
+          dependenciesRecorded:
+            type: boolean
+          buildProvenanceAvailable:
+            type: boolean
+          artifactIntegrityVerified:
+            type: boolean
