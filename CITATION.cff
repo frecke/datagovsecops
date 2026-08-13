@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 message: "If you use this work, cite the repository and the specific release."
-title: "DataGovOps reference work"
+title: "DataGovSecOps reference work"
 type: software
 authors:
   - family-names: "Fredrik"
-repository-code: "https://github.com/frecke"
+repository-code: "https://github.com/frecke/datagovsecops"
 license: Apache-2.0
