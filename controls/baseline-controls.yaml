@@ -1,0 +1,22 @@
+profile: datagovsecops-baseline
+version: 0.1.0
+status: proposed
+controls:
+  - id: DGSO-ACC-001
+    objective: Access to the data product is granted according to documented need and least privilege.
+    verification: hybrid
+    expectedEvidence:
+      - access-policy-reference
+      - periodic-review-record
+  - id: DGSO-INT-001
+    objective: Changes affecting data integrity are attributable and reviewable.
+    verification: automated
+    expectedEvidence:
+      - protected-change-history
+      - build-or-deployment-provenance
+  - id: DGSO-EVD-001
+    objective: Control evidence is versioned, attributable and retained for its required period.
+    verification: hybrid
+    expectedEvidence:
+      - evidence-register
+      - retention-decision-reference
